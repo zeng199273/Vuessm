@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Vue综合练习</title>
+<!-- 导入Vue的在线插件 -->
+<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+<!-- 导入Vue Ajax的在线插件 -->
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<!-- 导入jQuery在线插件 -->
+<script src="https://code.jquery.com/jquery.js"></script>
+</head>
+
+<body>	
+	<h1>添加商品</h1>
+	<div id="app">
+    	商品名称:<input type="text" v-model="goods.name" /> <br/>
+       	商品价格:<input type="text" v-model="goods.price" /> <br/>
+       	 类型ID:<input type="text" v-model="goods.c_id" /> <br/>
+        <button @click="add()">确定添加</button>
+    </div>
+</body>
+</html>
+
+<script>
+	var vm = new Vue({
+		el:'#app',
+		data:{
+			goods:{"name":'',"price":'',"c_id":''}
+		},
+		methods:{
+			add:function(){
+				//得到表单的数据
+				var name = this.goods.name ;
+				var price = this.goods.price ;
+				var c_id = this.goods.c_id ;
+				//执行ajax请求
+				$.ajax({
+					url:'http://localhost:8181/goods-servlet/add.action',
+					method:'POST',
+					data:{"name":name,"price":price,"c_id":c_id},
+					dataType:'text',
+					success:function(data){
+						alert(data);
+						window.location.href = "http://localhost:8181/goods-servlet/Vuetable.jsp" ;
+					}
+				});
+			}
+		}
+	});
+</script>

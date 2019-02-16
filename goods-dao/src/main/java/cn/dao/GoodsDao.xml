@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dao.GoodsDao">  <!-- 必须写接口的全名 -->
+	<!-- 查询所有的数据-->
+	<select id="findAll" resultType="cn.entity.Goods">
+		select * from goods
+	</select>
+	<!-- 添加数据 -->
+	<insert id="addGoods" parameterType="cn.entity.Goods">
+		insert into goods(name,price,c_id)
+		value(#{name},#{price},#{c_id})
+	</insert>
+	<!-- 删除数据 -->
+	<delete id="deleteGoods">
+		delete from goods where id=#{id}
+	</delete>
+	<!-- 修改数据 -->
+	<update id="updateGoods" parameterType="cn.entity.Goods">
+		update goods set name=#{name},price=#{price}
+		,c_id=#{c_id} where id=#{id}
+	</update>
+	<!-- 查询单条数据 -->
+	<select id="findByIdGoods" resultType="cn.entity.Goods">
+		select * from goods where id=#{id}
+	</select>
+	<!-- 模糊查询 -->
+	<select id="findByNameGoods" resultType="cn.entity.Goods">
+		select * from goods where name like "%"#{name}"%"
+	</select>
+</mapper>
